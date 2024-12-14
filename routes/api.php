@@ -4,72 +4,54 @@ use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
+// Login
 Route::post('/login', [AuthController::class, 'login']);
 // kategori
-Route::get('/kategori', [kategoriController::class, 'index']);
-Route::get('/kategori/{id}', [kategoriController::class, 'show']);
+Route::prefix('kategori')->group(function () {
+    Route::get('/', [KategoriController::class, 'index']); 
+    Route::get('/{id}', [KategoriController::class, 'show']); 
+});
 // Setatus
-Route::get('/status', [StatusController::class, 'index']);
-Route::get('/status/{id}', [StatusController::class, 'show']);
+Route::prefix('status')->group(function () {
+    Route::get('/', [StatusController::class, 'index']); // Get all statuses
+    Route::get('/{id}', [StatusController::class, 'show']); // Get a specific status
+});
 // Aduan
-Route::get('/aduan', [AduanController::class, 'index'])->name('Aduan.index');
-Route::get('/aduan/{id}', [AduanController::class, 'show'])->name('Aduan.show');
-Route::post('/aduan', [AduanController::class, 'store'])->name('Aduan.store');
-Route::put('/aduan/{id}', [AduanController::class, 'update'])->name('Aduan.update');
-Route::delete('/aduan/{id}', [AduanController::class, 'destroy'])->name('Aduan.destroy');
-Route::get('/cari-aduan/{id}', [AduanController::class, 'cari'])->name('Aduan.cari');
-
+Route::prefix('aduan')->group(function () {
+    Route::get('/', [AduanController::class, 'index'])->name('Aduan.index'); // Get all Aduan
+    Route::get('/{id}', [AduanController::class, 'show'])->name('Aduan.show'); // Get a specific Aduan
+    Route::post('/', [AduanController::class, 'store'])->name('Aduan.store'); // Create a new Aduan
+    Route::put('/{id}', [AduanController::class, 'update'])->name('Aduan.update'); // Update an Aduan
+    Route::delete('/{id}', [AduanController::class, 'destroy'])->name('Aduan.destroy'); // Delete an Aduan
+    Route::get('/cari/{id}', [AduanController::class, 'cari'])->name('Aduan.cari'); // Search Aduan by criteria
+});
 
 // Middleware untuk memeriksa role
 Route::middleware(['auth:sanctum'])->group(function () {
-    // pemerintah
+    // Pemerintah-specific routes
     Route::middleware(['role:1'])->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
-
         Route::get('/status', [StatusController::class, 'index']);
-        // Rute lain untuk role 1
-        Route::post('/admin-action', [AuthController::class, 'adminAction']);
-
+        Route::post('/admin-action', [AuthController::class, 'adminAction']); // Pemerintah-specific action
     });
 
-    // pengelola
+    // Pengelola-specific routes
     Route::middleware(['role:2'])->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
-
-        // Rute lain untuk role 2
-        // Route::get('/status', [StatusController::class, 'index']);
-        Route::post('/user-action', [AuthController::class, 'userAction']);
-
+        Route::post('/user-action', [AuthController::class, 'userAction']); // Pengelola-specific action
     });
 
-    // Rute logout yang dapat diakses oleh semua role
+    // Logout route (accessible to all authenticated users)
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-
-
-
-
-
-//Auth
-// Route::post('/register', [AuthController::class, 'register']);
-
-
-// Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::get('/user', function (Request $request) {
-//         return $request->user();
-//     });
-//     // Add logout route
-//     Route::post('/logout', [AuthController::class, 'logout']);
-// });
-
-// auth
+Route::get('/assign-roles', [RoleController::class, 'assignRoles']);
