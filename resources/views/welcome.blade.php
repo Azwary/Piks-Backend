@@ -56,6 +56,7 @@
 
                     <main class="mt-6">
                         <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
+<<<<<<< HEAD
                             <a
                                 href="https://laravel.com/docs"
                                 id="docs-card"
@@ -160,6 +161,9 @@
                                 </div>
                             </div>
                         </div>
+=======
+                            
+>>>>>>> fb/main
                     </main>
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">

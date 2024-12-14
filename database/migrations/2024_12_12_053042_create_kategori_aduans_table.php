@@ -18,8 +18,9 @@ return new class extends Migration
             $table->timestamps();
         });
         $kategori_aduans = [
-            ['kategori' => 'Bencana alam'],
+            ['kategori' => 'Bencana Alam'],
             ['kategori' => 'infrastruktur'],
+            ['kategori' => 'Kenyamanan Masyarakat'],
         ];
         DB::table('kategori_aduans')->insert($kategori_aduans);
     }

@@ -18,10 +18,19 @@ return new class extends Migration
             $table->timestamps();
         });
         $statuses = [
+<<<<<<< HEAD
             ['status' => 'Belum Diproses'],
+<<<<<<< HEAD
             ['status' => 'Aduan Diproses'],
             ['status' => 'Aduan Ditolak'],
             ['status' => 'Aduan Selesai'],
+=======
+=======
+            ['status' => 'Belum Ditangani'],
+>>>>>>> fb/main
+            ['status' => 'Sedang Ditangani'],
+            ['status' => 'Telah Ditangani'],
+>>>>>>> 0fc0f24182e5a47b055a9a4519b65d784ea1ad31
         ];
         DB::table('statuses')->insert($statuses);
     }
