@@ -2,10 +2,21 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
+<<<<<<< HEAD
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+=======
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "fruitcake/php-cors": "^1.3",
+>>>>>>> fb/main
         "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",

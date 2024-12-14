@@ -27,7 +27,11 @@ class AduanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+<<<<<<< HEAD
             'nama_pengadu' => 'required|string',
+=======
+            'pengadu_id' => 'required|exists:users,id',
+>>>>>>> fb/main
             'kategori_id' => 'required|exists:kategori_aduans,id',
             'keterangan_aduan' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -35,7 +39,10 @@ class AduanController extends Controller
             'deskripsi_lokasi' => 'required|string',
             'status_id' => 'required|exists:statuses,id',
             'dokumentasi_hasil' => 'nullable|string',
+<<<<<<< HEAD
             'anonim' => 'nullable|in:0,1',
+=======
+>>>>>>> fb/main
         ]);
 
         if ($validator->fails()) {
@@ -43,7 +50,11 @@ class AduanController extends Controller
         }
 
         $aduan = new Aduan();
+<<<<<<< HEAD
         $aduan->nama_pengadu = $request->input('nama_pengadu');
+=======
+        $aduan->pengadu_id = $request->input('pengadu_id');
+>>>>>>> fb/main
         $aduan->kategori_id = $request->input('kategori_id');
         $aduan->keterangan_aduan = $request->input('keterangan_aduan');
 
@@ -58,7 +69,10 @@ class AduanController extends Controller
         $aduan->deskripsi_lokasi = $request->input('deskripsi_lokasi');
         $aduan->status_id = $request->input('status_id');
         $aduan->dokumentasi_hasil = $request->input('dokumentasi_hasil');
+<<<<<<< HEAD
         $aduan->anonim = $request->input('anonim');
+=======
+>>>>>>> fb/main
 
         $aduan->save();
 
@@ -74,7 +88,11 @@ class AduanController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+<<<<<<< HEAD
             'nama_pengadu' => 'sometimes|string',
+=======
+            'pengadu_id' => 'sometimes|required|exists:users,id',
+>>>>>>> fb/main
             'kategori_id' => 'sometimes|required|exists:kategori_aduans,id',
             'keterangan_aduan' => 'sometimes|required|string',
             'foto' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -82,7 +100,10 @@ class AduanController extends Controller
             'deskripsi_lokasi' => 'sometimes|required|string',
             'status_id' => 'sometimes|required|exists:statuses,id',
             'dokumentasi_hasil' => 'sometimes|nullable|string',
+<<<<<<< HEAD
             'anonim' => 'nullable|in:0,1',
+=======
+>>>>>>> fb/main
         ]);
 
         if ($validator->fails()) {
@@ -103,14 +124,21 @@ class AduanController extends Controller
         }
 
         // Update data aduan
+<<<<<<< HEAD
         $aduan->nama_pengadu = $request->input('nama_pengadu', $aduan->nama_pengadu);
+=======
+        $aduan->pengadu_id = $request->input('pengadu_id', $aduan->pengadu_id);
+>>>>>>> fb/main
         $aduan->kategori_id = $request->input('kategori_id', $aduan->kategori_id);
         $aduan->keterangan_aduan = $request->input('keterangan_aduan', $aduan->keterangan_aduan);
         $aduan->titik_lokasi = $request->input('titik_lokasi', $aduan->titik_lokasi);
         $aduan->deskripsi_lokasi = $request->input('deskripsi_lokasi', $aduan->deskripsi_lokasi);
         $aduan->status_id = $request->input('status_id', $aduan->status_id);
         $aduan->dokumentasi_hasil = $request->input('dokumentasi_hasil', $aduan->dokumentasi_hasil);
+<<<<<<< HEAD
         $aduan->anonim = $request->input('anonim', $aduan->anonim);
+=======
+>>>>>>> fb/main
 
         $aduan->save();
 
