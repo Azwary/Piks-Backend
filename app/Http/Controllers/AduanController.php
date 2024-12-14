@@ -31,7 +31,8 @@ class AduanController extends Controller
             'kategori_id' => 'required|exists:kategori_aduans,id',
             'keterangan_aduan' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'titik_lokasi' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kelurahan' => 'required|string',
             'deskripsi_lokasi' => 'required|string',
             'status_id' => 'required|exists:statuses,id',
             'dokumentasi_hasil' => 'nullable|string',
@@ -53,7 +54,8 @@ class AduanController extends Controller
             $aduan->foto = 'storage/foto/' . $filename;
         }
 
-        $aduan->titik_lokasi = $request->input('titik_lokasi');
+        $aduan->kecamatan = $request->input('kecamatan');
+        $aduan->kelurahan = $request->input('kelurahan');
         $aduan->deskripsi_lokasi = $request->input('deskripsi_lokasi');
         $aduan->status_id = $request->input('status_id');
         $aduan->dokumentasi_hasil = $request->input('dokumentasi_hasil');
@@ -76,7 +78,8 @@ class AduanController extends Controller
             'kategori_id' => 'sometimes|required|exists:kategori_aduans,id',
             'keterangan_aduan' => 'sometimes|required|string',
             'foto' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'titik_lokasi' => 'sometimes|required|string',
+            'kecamatan' => 'sometimes|required|string',
+            'kelurahan' => 'sometimes|required|string',
             'deskripsi_lokasi' => 'sometimes|required|string',
             'status_id' => 'sometimes|required|exists:statuses,id',
             'dokumentasi_hasil' => 'sometimes|nullable|string',
@@ -103,7 +106,8 @@ class AduanController extends Controller
         $aduan->pengadu_id = $request->input('pengadu_id', $aduan->pengadu_id);
         $aduan->kategori_id = $request->input('kategori_id', $aduan->kategori_id);
         $aduan->keterangan_aduan = $request->input('keterangan_aduan', $aduan->keterangan_aduan);
-        $aduan->titik_lokasi = $request->input('titik_lokasi', $aduan->titik_lokasi);
+        $aduan->kecamatan = $request->input('kecamatan', $aduan->kecamatan);
+        $aduan->kelurahan = $request->input('kelurahan', $aduan->kelurahan);
         $aduan->deskripsi_lokasi = $request->input('deskripsi_lokasi', $aduan->deskripsi_lokasi);
         $aduan->status_id = $request->input('status_id', $aduan->status_id);
         $aduan->dokumentasi_hasil = $request->input('dokumentasi_hasil', $aduan->dokumentasi_hasil);
