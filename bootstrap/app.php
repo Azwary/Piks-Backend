@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         // Mendaftarkan middleware di sini
-        $middleware->addMiddleware(\App\Http\Middleware\RoleMiddleware::class);
+        // $middleware->addMiddleware(\App\Http\Middleware\RoleMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Penanganan pengecualian dapat ditambahkan di sini

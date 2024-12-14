@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PhpParser\Node\NullableType;
 
 return new class extends Migration
 {
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kelurahan');
             $table->text('deskripsi_lokasi');
-            $table->unsignedBigInteger('status_id')->default(1);;
+            $table->unsignedBigInteger('status_id')->nullable()->default(1);;
             $table->string('dokumentasi_hasil')->nullable();
             $table->timestamps();
 
