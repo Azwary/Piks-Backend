@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kelurahan');
             $table->text('deskripsi_lokasi');
-            $table->unsignedBigInteger('status_id');
-            $table->string('dokumentasi_hasil');
+            $table->unsignedBigInteger('status_id')->default(1);;
+            $table->string('dokumentasi_hasil')->nullable();
             $table->timestamps();
+
             $table->foreign('pengadu_id')->references('id')->on('users');
             $table->foreign('kategori_id')->references('id')->on('kategori_aduans');
             $table->foreign('status_id')->references('id')->on('statuses');
