@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
@@ -17,16 +18,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        // Memeriksa apakah pengguna terautentikasi
-        if (!$request->user()) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        // Cek apakah pengguna memiliki role yang sesuai
+        if (auth()->check() && auth()->user()->role == $role) {
+            return $next($request);
         }
 
-        // Memeriksa apakah pengguna memiliki role yang sesuai
-        if ($request->user()->role != $role) {
-            return response()->json(['message' => 'Forbidden'], 403);
-        }
-
-        return $next($request);
+        return response()->json(['message' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
     }
 }
