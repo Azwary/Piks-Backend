@@ -28,8 +28,8 @@ Route::prefix('aduan')->group(function () {
     Route::post('/', [AduanController::class, 'store']);
     Route::put('/{id}', [AduanController::class, 'update']);
     Route::delete('/{id}', [AduanController::class, 'destroy']);
-    Route::get('/cari', [AduanController::class, 'cari']);
 });
+Route::get('/tes', [AduanController::class, 'cari']);
 
 // Middleware untuk memeriksa role
 Route::middleware(['auth:sanctum'])->group(function () {
