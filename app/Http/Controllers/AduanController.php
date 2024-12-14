@@ -13,6 +13,9 @@ class AduanController extends Controller
     {
         $aduan = Aduan::all();
         return response()->json($aduan);
+        if (!$aduan) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
     }
 
     public function show($id)
