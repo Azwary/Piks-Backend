@@ -19,8 +19,9 @@ return new class extends Migration
         });
         $statuses = [
             ['status' => 'Belum Diproses'],
-            ['status' => 'Sedang Ditangani'],
-            ['status' => 'Telah Ditangani'],
+            ['status' => 'Aduan Diproses'],
+            ['status' => 'Aduan Ditolak'],
+            ['status' => 'Aduan Selesai'],
         ];
         DB::table('statuses')->insert($statuses);
     }

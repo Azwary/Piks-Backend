@@ -17,7 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_id');
             $table->string('keterangan_aduan');
             $table->string('foto');
-            $table->string('titik_lokasi');
+            $table->string('kecamatan');
+            $table->string('kelurahan');
             $table->text('deskripsi_lokasi');
             $table->unsignedBigInteger('status_id');
             $table->string('dokumentasi_hasil');
