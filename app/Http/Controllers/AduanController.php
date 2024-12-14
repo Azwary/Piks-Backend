@@ -18,10 +18,17 @@ class AduanController extends Controller
     public function show($id)
     {
         $aduan = Aduan::find($id);
+
         if (!$aduan) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }else if ($aduan->status_id == 2 && 4) {
+            return response()->json($aduan);
+        }else if ($aduan->status_id == 1) {
+            return response()->json(['message' => 'Aduan anda belum diproses'], 200);
+        } else if ($aduan->status_id == 3) {
+            return response()->json(['message' => 'Aduan ditolak'], 422);
         }
-        return response()->json($aduan);
+        return response()->json(['message' => 'Ulangi'], 404);
     }
 
     public function store(Request $request)
@@ -34,7 +41,7 @@ class AduanController extends Controller
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
             'deskripsi_lokasi' => 'required|string',
-            'status_id' => 'required|exists:statuses,id',
+            'status_id' => 'exists:statuses,id',
             'dokumentasi_hasil' => 'nullable|string',
         ]);
 
@@ -131,5 +138,26 @@ class AduanController extends Controller
 
         $aduan->delete();
         return response()->json(['message' => 'Data aduan berhasil dihapus'], 200);
+    }
+
+
+    public function cari($id)
+    {
+        // Mencari Aduan berdasarkan ID
+        $aduan = Aduan::find($id);
+
+        // Memeriksa apakah Aduan ditemukan
+        if (!$aduan) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+        // Memeriksa apakah status_id adalah 2
+        else if (!$aduan->status_id == 1) {
+            return response()->json($aduan);
+        } else if ($aduan->status_id == 3) {
+            return response()->json(['message' => 'Aduan ditolak'], 200);
+        }
+
+        // Jika status_id bukan 2, kembalikan pesan yang sesuai
+        return response()->json(['message' => 'Aduan anda belum diproses'], 200);
     }
 }

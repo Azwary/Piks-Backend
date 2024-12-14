@@ -14,14 +14,15 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/kategori', [kategoriController::class, 'index']);
 Route::get('/kategori/{id}', [kategoriController::class, 'show']);
 // Setatus
-// Route::get('/status', [StatusController::class, 'index']);
+Route::get('/status', [StatusController::class, 'index']);
 Route::get('/status/{id}', [StatusController::class, 'show']);
 // Aduan
-Route::get('/Aduan', [AduanController::class, 'index'])->name('Aduan.index');
-Route::get('/Aduan/{id}', [AduanController::class, 'show'])->name('Aduan.show');
-Route::post('/Aduan', [AduanController::class, 'store'])->name('Aduan.store');
-Route::put('/Aduan/{id}', [AduanController::class, 'update'])->name('Aduan.update');
-Route::delete('/Aduan/{id}', [AduanController::class, 'destroy'])->name('Aduan.destroy');
+Route::get('/aduan', [AduanController::class, 'index'])->name('Aduan.index');
+Route::get('/aduan/{id}', [AduanController::class, 'show'])->name('Aduan.show');
+Route::post('/aduan', [AduanController::class, 'store'])->name('Aduan.store');
+Route::put('/aduan/{id}', [AduanController::class, 'update'])->name('Aduan.update');
+Route::delete('/aduan/{id}', [AduanController::class, 'destroy'])->name('Aduan.destroy');
+Route::get('/cari-aduan/{id}', [AduanController::class, 'cari'])->name('Aduan.cari');
 
 
 // Middleware untuk memeriksa role
