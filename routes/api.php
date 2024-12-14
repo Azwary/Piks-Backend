@@ -46,8 +46,9 @@ Route::get('/total-aduan', [AduanController::class, 'total']);
     // Route::middleware(['role:2'])->group(function () {
     //     Route::get('/status', [StatusController::class, 'index']);
     // });
-    Route::middleware(['auth:sanctum', RoleMiddleware::class.':1'])->group(function () {
-        Route::post('/pemerintah/add', [PengelolaController::class, 'addPemerintah']);
-        Route::post('/logout', [AuthController::class, 'logout']);
-    });
+Route::middleware(['auth:sanctum', 'role:1'])->group(function () {
+    Route::post('/pemerintah/add', [PengelolaController::class, 'addPemerintah']);
+    
+});
     // Rute logout (akses untuk semua yang sudah login)
+    

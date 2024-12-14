@@ -10,6 +10,17 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
     // Definisi role
     const ROLE_PENGELOLA = 1;
     const ROLE_PEMERINTAH = 2;
