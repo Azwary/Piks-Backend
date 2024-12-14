@@ -180,4 +180,72 @@ class AduanController extends Controller
         $total = Aduan::count();
         return response()->json(['total' => $total], 200);
     }
+    public function total1()
+    {
+        // Count the Aduan records where status_id is 1
+        $total = Aduan::where('status_id', 1)->count();
+
+        return response()->json(['total' => $total], 200);
+    }
+
+    public function pending()
+    {
+        // $aduans = Aduan::where('status_id', 1)->select('id', 'status_id')->get();
+        $aduans = Aduan::where('status_id', 1)->get();
+
+        $total = $aduans->count();
+
+        // Prepare the response with aduan_id and status_id
+        // $aduanData = $aduans->map(function ($aduan) {
+        //     return [
+        //         'aduan_id' => $aduan->id,
+        //         'status_id' => $aduan->status_id,
+        //     ];
+        // });
+
+        // Return both total and the aduan data
+        return response()->json([
+            'total' => $total,
+            'aduan_data' => $aduans // Return an array of objects with aduan_id and status_id
+        ], 200);
+    }
+    public function updateStatus(Request $request, $aduan_id)
+    {
+
+        $request->validate([
+            'status_id' => 'required|exists:statuses,id',
+        ]);
+
+        $aduan = Aduan::where('id', $aduan_id)->first();
+
+        if (!$aduan) {
+            return response()->json(['message' => 'Aduan not found'], 404);
+        }
+
+        $aduan->status_id = $request->input('status_id');
+        $aduan->save();
+
+        return response()->json(['message' => 'Status updated successfully', 'aduan' => $aduan], 200);
+    }
+    public function proses()
+    {
+        // $aduans = Aduan::where('status_id', 1)->select('id', 'status_id')->get();
+        $aduans = Aduan::where('status_id', 2)->get();
+
+        $total = $aduans->count();
+
+        // Prepare the response with aduan_id and status_id
+        // $aduanData = $aduans->map(function ($aduan) {
+        //     return [
+        //         'aduan_id' => $aduan->id,
+        //         'status_id' => $aduan->status_id,
+        //     ];
+        // });
+
+        // Return both total and the aduan data
+        return response()->json([
+            'total' => $total,
+            'aduan_data' => $aduans // Return an array of objects with aduan_id and status_id
+        ], 200);
+    }
 }
