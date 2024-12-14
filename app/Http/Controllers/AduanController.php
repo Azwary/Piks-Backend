@@ -6,13 +6,19 @@ use App\Models\Aduan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AduanController extends Controller
 {
     public function index()
     {
         $aduan = Aduan::all();
-        return response()->json($aduan);
+
+        if ($aduan->isEmpty()) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+
+        return response()->json($aduan, 200);
     }
 
     public function show($id)
@@ -21,14 +27,19 @@ class AduanController extends Controller
 
         if (!$aduan) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
-        }else if ($aduan->status_id == 2 && 4) {
-            return response()->json($aduan);
-        }else if ($aduan->status_id == 1) {
-            return response()->json(['message' => 'Aduan anda belum diproses'], 200);
-        } else if ($aduan->status_id == 3) {
-            return response()->json(['message' => 'Aduan ditolak'], 422);
         }
-        return response()->json(['message' => 'Ulangi'], 404);
+
+        switch ($aduan->status_id) {
+            case 1:
+                return response()->json(['message' => 'Aduan Anda belum diproses'], 200);
+            case 3:
+                return response()->json(['message' => 'Aduan ditolak'], 422);
+            case 2:
+            case 4:
+                return response()->json($aduan, 200);
+            default:
+                return response()->json(['message' => 'Status tidak dikenali'], 400);
+        }
     }
 
     public function store(Request $request)
@@ -41,7 +52,7 @@ class AduanController extends Controller
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
             'deskripsi_lokasi' => 'required|string',
-            'status_id' => 'exists:statuses,id',
+            'status_id' => 'nullable|exists:statuses,id',
             'dokumentasi_hasil' => 'nullable|string',
         ]);
 
@@ -50,22 +61,15 @@ class AduanController extends Controller
         }
 
         $aduan = new Aduan();
-        $aduan->nama_pengadu = $request->input('nama_pengadu');
-        $aduan->kategori_id = $request->input('kategori_id');
-        $aduan->keterangan_aduan = $request->input('keterangan_aduan');
+        $aduan->fill($request->except(['foto']));
+        $aduan->aduan_id = Str::random(10);
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/foto', $filename);
-            $aduan->foto = 'storage/foto/' . $filename;
+            $path = $file->storeAs('public/foto', $filename);
+            $aduan->foto = Storage::url($path);
         }
-
-        $aduan->kecamatan = $request->input('kecamatan');
-        $aduan->kelurahan = $request->input('kelurahan');
-        $aduan->deskripsi_lokasi = $request->input('deskripsi_lokasi');
-        $aduan->status_id = $request->input('status_id');
-        $aduan->dokumentasi_hasil = $request->input('dokumentasi_hasil');
 
         $aduan->save();
 
@@ -96,29 +100,17 @@ class AduanController extends Controller
             return response()->json(['error' => $validator->messages()], 422);
         }
 
-        // Hapus foto lama jika ada
-        if ($aduan->foto && $request->hasFile('foto')) {
-            Storage::delete('public/' . str_replace('storage/foto/', '', $aduan->foto));
-        }
-
-        // Simpan foto baru jika ada
         if ($request->hasFile('foto')) {
+            if ($aduan->foto) {
+                Storage::delete('public/foto/' . basename($aduan->foto));
+            }
             $file = $request->file('foto');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/foto', $filename);
-            $aduan->foto = 'storage/foto/' . $filename;
+            $path = $file->storeAs('public/foto', $filename);
+            $aduan->foto = Storage::url($path);
         }
 
-        // Update data aduan
-        $aduan->nama_pengadu = $request->input('nama_pengadu', $aduan->nama_pengadu);
-        $aduan->kategori_id = $request->input('kategori_id', $aduan->kategori_id);
-        $aduan->keterangan_aduan = $request->input('keterangan_aduan', $aduan->keterangan_aduan);
-        $aduan->kecamatan = $request->input('kecamatan', $aduan->kecamatan);
-        $aduan->kelurahan = $request->input('kelurahan', $aduan->kelurahan);
-        $aduan->deskripsi_lokasi = $request->input('deskripsi_lokasi', $aduan->deskripsi_lokasi);
-        $aduan->status_id = $request->input('status_id', $aduan->status_id);
-        $aduan->dokumentasi_hasil = $request->input('dokumentasi_hasil', $aduan->dokumentasi_hasil);
-
+        $aduan->fill($request->except(['foto']));
         $aduan->save();
 
         return response()->json(['message' => 'Data aduan berhasil diupdate'], 200);
@@ -127,37 +119,39 @@ class AduanController extends Controller
     public function destroy($id)
     {
         $aduan = Aduan::find($id);
+
         if (!$aduan) {
             return response()->json(['error' => 'Data aduan tidak ditemukan'], 404);
         }
 
-        // Hapus foto jika ada
         if ($aduan->foto) {
-            Storage::delete('public/' . $aduan->foto);
+            Storage::delete('public/foto/' . basename($aduan->foto));
         }
 
         $aduan->delete();
+
         return response()->json(['message' => 'Data aduan berhasil dihapus'], 200);
     }
 
-
-    public function cari($id)
+    public function cari(Request $request)
     {
-        // Mencari Aduan berdasarkan ID
-        $aduan = Aduan::find($id);
+        $request->validate([
+            'aduan_id' => 'required|string|max:255',
+        ]);
 
-        // Memeriksa apakah Aduan ditemukan
+        $aduan = Aduan::where('aduan_id', $request->input('aduan_id'))
+            ->select('id', 'aduan_id', 'judul', 'deskripsi', 'status')
+            ->first();
+
         if (!$aduan) {
-            return response()->json(['message' => 'Data tidak ditemukan'], 404);
-        }
-        // Memeriksa apakah status_id adalah 2
-        else if (!$aduan->status_id == 1) {
-            return response()->json($aduan);
-        } else if ($aduan->status_id == 3) {
-            return response()->json(['message' => 'Aduan ditolak'], 200);
+            return redirect()->route('aduan.index')
+                ->with('error', 'Data tidak diaaatemukan');
         }
 
-        // Jika status_id bukan 2, kembalikan pesan yang sesuai
-        return response()->json(['message' => 'Aduan anda belum diproses'], 200);
+
+        return response()->json($aduan, 200);
+        // return redirect()->route('aduan.index')
+        //     ->with('success', 'Data ditemukan')
+        //     ->with('aduan', $aduan);
     }
 }
