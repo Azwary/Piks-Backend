@@ -5,6 +5,8 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PengelolaController;
+use App\Http\Middleware\RoleMiddleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,26 +34,19 @@ Route::prefix('aduan')->group(function () {
 });
 
 // Middleware untuk memeriksa role
-Route::middleware(['auth:sanctum'])->group(function () {
-    // Pemerintah-specific routes
-    Route::middleware(['role:1'])->group(function () {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
-        Route::get('/status', [StatusController::class, 'index']);
-        Route::post('/admin-action', [AuthController::class, 'adminAction']); // Pemerintah-specific action
+
+    // Rute untuk Pengelola (role:1)
+    // Route::middleware(['role:1'])->group(function () {
+    // Route::post('/pemerintah/add', [PengelolaController::class, 'addPemerintah']);
+    // });
+
+    // // Rute untuk Pemerintah (role:2)
+    // Route::middleware(['role:2'])->group(function () {
+    //     Route::get('/status', [StatusController::class, 'index']);
+    // });
+    Route::middleware(['auth:sanctum', RoleMiddleware::class.':1'])->group(function () {
+        Route::post('/pemerintah/add', [PengelolaController::class, 'addPemerintah']);
+        Route::post('/logout', [AuthController::class, 'logout']);
     });
-
-    // Pengelola-specific routes
-    Route::middleware(['role:2'])->group(function () {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
-        Route::post('/user-action', [AuthController::class, 'userAction']); // Pengelola-specific action
-    });
-
-    // Logout route (accessible to all authenticated users)
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
-
-Route::get('/assign-roles', [RoleController::class, 'assignRoles']);
+    // Rute logout (akses untuk semua yang sudah login)
+    
