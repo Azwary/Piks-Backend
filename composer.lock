@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "c8c7344698cb8aac50647bbf05c17b99",
+=======
+    "content-hash": "d7520a73a4a88c5659a28f254eed8bff",
+>>>>>>> fb/main
     "packages": [
         {
             "name": "brick/math",
@@ -1056,6 +1060,7 @@
         },
         {
             "name": "laravel/framework",
+<<<<<<< HEAD
             "version": "v11.35.0",
             "source": {
                 "type": "git",
@@ -1066,6 +1071,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/f1a7aaa3c1235b7a95ccaa58db90e0cd9d8c3fcc",
                 "reference": "f1a7aaa3c1235b7a95ccaa58db90e0cd9d8c3fcc",
+=======
+            "version": "v11.35.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "dcfa130ede1a6fa4343dc113410963e791ad34fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dcfa130ede1a6fa4343dc113410963e791ad34fb",
+                "reference": "dcfa130ede1a6fa4343dc113410963e791ad34fb",
+>>>>>>> fb/main
                 "shasum": ""
             },
             "require": {
@@ -1267,7 +1284,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
+<<<<<<< HEAD
             "time": "2024-12-10T16:09:29+00:00"
+=======
+            "time": "2024-12-12T18:25:58+00:00"
+>>>>>>> fb/main
         },
         {
             "name": "laravel/prompts",
@@ -8377,12 +8398,20 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
+<<<<<<< HEAD
     "stability-flags": {},
+=======
+    "stability-flags": [],
+>>>>>>> fb/main
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
+<<<<<<< HEAD
     "platform-dev": {},
+=======
+    "platform-dev": [],
+>>>>>>> fb/main
     "plugin-api-version": "2.6.0"
 }

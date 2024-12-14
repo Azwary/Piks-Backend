@@ -18,7 +18,11 @@ return new class extends Migration
             $table->timestamps();
         });
         $statuses = [
+<<<<<<< HEAD
             ['status' => 'Belum Diproses'],
+=======
+            ['status' => 'Belum Ditangani'],
+>>>>>>> fb/main
             ['status' => 'Sedang Ditangani'],
             ['status' => 'Telah Ditangani'],
         ];
