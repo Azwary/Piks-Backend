@@ -227,6 +227,20 @@ class AduanController extends Controller
 
         return response()->json(['message' => 'Status updated successfully', 'aduan' => $aduan], 200);
     }
+    public function toproses($aduan_id)
+    {
+
+        $aduan = Aduan::where('id', $aduan_id)->first();
+
+        if (!$aduan) {
+            return response()->json(['message' => 'Aduan not found'], 404);
+        }
+
+        $aduan->status_id = 2;
+        $aduan->save();
+
+        return response()->json(['message' => 'Status updated successfully', 'aduan' => $aduan], 200);
+    }
     public function proses()
     {
         // $aduans = Aduan::where('status_id', 1)->select('id', 'status_id')->get();
