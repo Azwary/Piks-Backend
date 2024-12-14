@@ -22,8 +22,6 @@ return new class extends Migration
             ['status' => 'Aduan Diproses'],
             ['status' => 'Aduan Ditolak'],
             ['status' => 'Aduan Selesai'],
-            ['status' => 'Sedang Ditangani'],
-            ['status' => 'Telah Ditangani'],
         ];
         DB::table('statuses')->insert($statuses);
     }
