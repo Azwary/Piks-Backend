@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99
+class ComposerStaticInitd7520a73a4a88c5659a28f254eed8bff
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -365,8 +365,8 @@ class ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -406,8 +406,8 @@ class ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces',
+            1 => __DIR__ . '/..' . '/league/uri',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -550,11 +550,11 @@ class ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\StatusController' => __DIR__ . '/../..' . '/app/Http/Controllers/StatusController.php',
         'App\\Http\\Controllers\\kategoriController' => __DIR__ . '/../..' . '/app/Http/Controllers/kategoriController.php',
+        'App\\Http\\Middleware\\Cors' => __DIR__ . '/../..' . '/app/Http/Middleware/Cors.php',
         'App\\Models\\Aduan' => __DIR__ . '/../..' . '/app/Models/Aduan.php',
         'App\\Models\\Dokuementasi' => __DIR__ . '/../..' . '/app/Models/Dokuementasi.php',
         'App\\Models\\KategoriAduan' => __DIR__ . '/../..' . '/app/Models/KategoriAduan.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
-        'App\\Models\\UsersPemerintah' => __DIR__ . '/../..' . '/app/Models/UsersPemerintah.php',
         'App\\Models\\status' => __DIR__ . '/../..' . '/app/Models/status.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -674,7 +674,6 @@ class ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99
         'Cron\\HoursField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
-        'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
@@ -6803,9 +6802,9 @@ class ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc8c7344698cb8aac50647bbf05c17b99::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd7520a73a4a88c5659a28f254eed8bff::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd7520a73a4a88c5659a28f254eed8bff::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd7520a73a4a88c5659a28f254eed8bff::$classMap;
 
         }, null, ClassLoader::class);
     }
