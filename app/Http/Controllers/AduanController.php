@@ -80,7 +80,7 @@ class AduanController extends Controller
         $aduan = Aduan::find($id);
 
         if (!$aduan) {
-            return response()->json(['error' => 'Data aduan tidak ditemukan'], 404);
+            // return response()->json(['error' => 'Data aduan tidak ditemukan'], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -152,9 +152,10 @@ class AduanController extends Controller
         ]);
 
         $aduan_1 =  $request->input('aduan_id');
+        // $aduan_1 =  'DA6Sud3h9A';
         $aduan = Aduan::where('aduan_id', $aduan_1)->first();
         if (!$aduan) {
-            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+            return response()->json(['message' => 'Data tidak ditemukannnnaaa'], 404);
         }
 
         return response()->json($aduan, 200);
