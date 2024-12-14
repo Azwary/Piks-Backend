@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('aduans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pengadu_id');
+            $table->string('nama_pengadu');
             $table->unsignedBigInteger('kategori_id');
             $table->string('keterangan_aduan');
             $table->string('foto');
@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('dokumentasi_hasil')->nullable();
             $table->timestamps();
 
-            $table->foreign('pengadu_id')->references('id')->on('users');
             $table->foreign('kategori_id')->references('id')->on('kategori_aduans');
             $table->foreign('status_id')->references('id')->on('statuses');
         });
