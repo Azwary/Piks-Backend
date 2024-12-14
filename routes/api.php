@@ -30,8 +30,10 @@ Route::prefix('aduan')->group(function () {
     Route::post('/', [AduanController::class, 'store']);
     Route::put('/{id}', [AduanController::class, 'update']);
     Route::delete('/{id}', [AduanController::class, 'destroy']);
-    Route::post('/cari', [AduanController::class, 'cari']);
 });
+Route::get('/new', [AduanController::class, 'new']);
+Route::post('/cari-aduan', [AduanController::class, 'cari']);
+Route::get('/total-aduan', [AduanController::class, 'total']);
 
 // Middleware untuk memeriksa role
 
@@ -49,4 +51,3 @@ Route::prefix('aduan')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
     });
     // Rute logout (akses untuk semua yang sudah login)
-    
