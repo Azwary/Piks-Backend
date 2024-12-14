@@ -6,6 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Actions\\Fortify\\CreateNewUser' => $baseDir . '/app/Actions/Fortify/CreateNewUser.php',
+    'App\\Actions\\Fortify\\PasswordValidationRules' => $baseDir . '/app/Actions/Fortify/PasswordValidationRules.php',
+    'App\\Actions\\Fortify\\ResetUserPassword' => $baseDir . '/app/Actions/Fortify/ResetUserPassword.php',
+    'App\\Actions\\Fortify\\UpdateUserPassword' => $baseDir . '/app/Actions/Fortify/UpdateUserPassword.php',
+    'App\\Actions\\Fortify\\UpdateUserProfileInformation' => $baseDir . '/app/Actions/Fortify/UpdateUserProfileInformation.php',
     'App\\Http\\Controllers\\AduanController' => $baseDir . '/app/Http/Controllers/AduanController.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
@@ -18,6 +23,7 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\status' => $baseDir . '/app/Models/status.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
+    'App\\Providers\\FortifyServiceProvider' => $baseDir . '/app/Providers/FortifyServiceProvider.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'BaconQrCode\\Common\\BitArray' => $vendorDir . '/bacon/bacon-qr-code/src/Common/BitArray.php',
     'BaconQrCode\\Common\\BitMatrix' => $vendorDir . '/bacon/bacon-qr-code/src/Common/BitMatrix.php',

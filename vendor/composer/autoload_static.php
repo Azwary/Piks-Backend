@@ -570,6 +570,11 @@ class ComposerStaticInitd7520a73a4a88c5659a28f254eed8bff
     );
 
     public static $classMap = array (
+        'App\\Actions\\Fortify\\CreateNewUser' => __DIR__ . '/../..' . '/app/Actions/Fortify/CreateNewUser.php',
+        'App\\Actions\\Fortify\\PasswordValidationRules' => __DIR__ . '/../..' . '/app/Actions/Fortify/PasswordValidationRules.php',
+        'App\\Actions\\Fortify\\ResetUserPassword' => __DIR__ . '/../..' . '/app/Actions/Fortify/ResetUserPassword.php',
+        'App\\Actions\\Fortify\\UpdateUserPassword' => __DIR__ . '/../..' . '/app/Actions/Fortify/UpdateUserPassword.php',
+        'App\\Actions\\Fortify\\UpdateUserProfileInformation' => __DIR__ . '/../..' . '/app/Actions/Fortify/UpdateUserProfileInformation.php',
         'App\\Http\\Controllers\\AduanController' => __DIR__ . '/../..' . '/app/Http/Controllers/AduanController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -582,6 +587,7 @@ class ComposerStaticInitd7520a73a4a88c5659a28f254eed8bff
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\status' => __DIR__ . '/../..' . '/app/Models/status.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Providers\\FortifyServiceProvider' => __DIR__ . '/../..' . '/app/Providers/FortifyServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BaconQrCode\\Common\\BitArray' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitArray.php',
         'BaconQrCode\\Common\\BitMatrix' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitMatrix.php',
