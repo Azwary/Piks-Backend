@@ -14,7 +14,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/kategori', [kategoriController::class, 'index']);
 Route::get('/kategori/{id}', [kategoriController::class, 'show']);
 // Setatus
-Route::get('/status', [StatusController::class, 'index']);
+// Route::get('/status', [StatusController::class, 'index']);
 Route::get('/status/{id}', [StatusController::class, 'show']);
 // Aduan
 Route::get('/Aduan', [AduanController::class, 'index'])->name('Aduan.index');
@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return $request->user();
         });
 
+        Route::get('/status', [StatusController::class, 'index']);
         // Rute lain untuk role 1
         Route::post('/admin-action', [AuthController::class, 'adminAction']);
 
@@ -44,6 +45,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         // Rute lain untuk role 2
+        // Route::get('/status', [StatusController::class, 'index']);
         Route::post('/user-action', [AuthController::class, 'userAction']);
 
     });
