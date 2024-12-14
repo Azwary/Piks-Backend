@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -12,44 +13,41 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Tabel users
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role',[1,2])->default(1);
+            $table->enum('role', [1, 2])->default(2); // 2 = Pemerintah, 1 = Pengelola
             $table->rememberToken();
             $table->timestamps();
         });
 
+        // Insert user admin
         $user = [
             [
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('admin123'),
-                'role' => 1,
-            ],
-
-            [
-                'name' => 'Pemerintah',
-                'email' => 'pemerintah@gmail.com',
-                'password' => Hash::make('pemerintah123'),
-                'role' => 2,
-            ],
+                'password' => Hash::make('admin123'), // Password dienkripsi
+                'role' => 1, // Role Pengelola
+            ]
         ];
 
         DB::table('users')->insert($user);
 
+        // Tabel password_reset_tokens
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // Tabel sessions
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
@@ -62,6 +60,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Menghapus tabel
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
