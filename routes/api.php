@@ -20,7 +20,7 @@ Route::middleware(['auth:sanctum', 'role:1'])->group(function () {      //pengel
     Route::get('/total-pending', [AduanController::class, 'total1']);
     Route::get('/pending', [AduanController::class, 'pending']);
     Route::put('/updateStatus/{id}', [AduanController::class, 'updateStatus']);
-    Route::delete('/{id}', [AduanController::class, 'destroy']);
+    Route::delete('aduan/{id}', [AduanController::class, 'destroy']);
 });
 
 Route::middleware(['auth:sanctum', 'role:2'])->group(function () {      //pemerintah
