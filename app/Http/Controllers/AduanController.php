@@ -22,9 +22,9 @@ class AduanController extends Controller
 
         if (!$aduan) {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
-        }else if ($aduan->status_id == 2 && 4) {
+        } else if ($aduan->status_id == 2 && 4) {
             return response()->json($aduan);
-        }else if ($aduan->status_id == 1) {
+        } else if ($aduan->status_id == 1) {
             return response()->json(['message' => 'Aduan anda belum diproses'], 200);
         } else if ($aduan->status_id == 3) {
             return response()->json(['message' => 'Aduan ditolak'], 422);
@@ -75,9 +75,23 @@ class AduanController extends Controller
         return response()->json(['message' => 'Data aduan berhasil disimpan'], 201);
     }
 
+    public function new()
+    {
+        // Retrieve the last Aduan record
+        $aduan = Aduan::orderBy('created_at', 'desc')->first(); // Assuming 'created_at' is the timestamp for the record
+
+        if (!$aduan) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+
+        return response()->json($aduan->aduan_id, 200);
+    }
+
+
     public function update(Request $request, $id)
     {
         $aduan = Aduan::find($id);
+
 
         if (!$aduan) {
             // return response()->json(['error' => 'Data aduan tidak ditemukan'], 404);
@@ -159,5 +173,11 @@ class AduanController extends Controller
         }
 
         return response()->json($aduan, 200);
+    }
+
+    public function total()
+    {
+        $total = Aduan::count();
+        return response()->json(['total' => $total], 200);
     }
 }
