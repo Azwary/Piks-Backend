@@ -18,10 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-<<<<<<< HEAD
-            $table->integer('role')->default(0);
-=======
->>>>>>> fb/main
+            $table->enum('role',[1,2])->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -31,6 +28,7 @@ return new class extends Migration
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin123'),
+                'role' => 1,
             ],
         ];
 
