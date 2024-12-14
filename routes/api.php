@@ -30,6 +30,7 @@ Route::prefix('aduan')->group(function () {
     Route::post('/', [AduanController::class, 'store']);
     Route::put('/{id}', [AduanController::class, 'update']);
     Route::delete('/{id}', [AduanController::class, 'destroy']);
+    Route::post('/cari', [AduanController::class, 'cari']);
 });
 
 // Middleware untuk memeriksa role
