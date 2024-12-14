@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 // kategori
 Route::prefix('kategori')->group(function () {
-    Route::get('/', [KategoriController::class, 'index']); 
-    Route::get('/{id}', [KategoriController::class, 'show']); 
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::get('/{id}', [KategoriController::class, 'show']);
 });
 // Setatus
 Route::prefix('status')->group(function () {
@@ -24,11 +24,11 @@ Route::prefix('status')->group(function () {
 // Aduan
 Route::prefix('aduan')->group(function () {
     Route::get('/', [AduanController::class, 'index'])->name('Aduan.index'); // Get all Aduan
-    Route::get('/{id}', [AduanController::class, 'show'])->name('Aduan.show'); // Get a specific Aduan
-    Route::post('/', [AduanController::class, 'store'])->name('Aduan.store'); // Create a new Aduan
-    Route::put('/{id}', [AduanController::class, 'update'])->name('Aduan.update'); // Update an Aduan
-    Route::delete('/{id}', [AduanController::class, 'destroy'])->name('Aduan.destroy'); // Delete an Aduan
-    Route::get('/cari/{id}', [AduanController::class, 'cari'])->name('Aduan.cari'); // Search Aduan by criteria
+    Route::get('/{id}', [AduanController::class, 'show']);
+    Route::post('/', [AduanController::class, 'store']);
+    Route::put('/{id}', [AduanController::class, 'update']);
+    Route::delete('/{id}', [AduanController::class, 'destroy']);
+    Route::get('/cari', [AduanController::class, 'cari']);
 });
 
 // Middleware untuk memeriksa role
