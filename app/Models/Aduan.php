@@ -9,7 +9,7 @@ class Aduan extends Model
     protected $table = 'aduans';
 
     protected $fillable = [
-        'pengadu_id',
+        'nama_pengadu',
         'kategori_id',
         'keterangan_aduan',
         'foto',
@@ -19,8 +19,4 @@ class Aduan extends Model
         'dokumentasi_hasil',
     ];
 
-    public function pengadu()
-    {
-        return $this->belongsTo(User::class, 'pengadu_id')->nullable();
-    }
 }

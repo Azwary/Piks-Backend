@@ -34,7 +34,7 @@ class AduanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'pengadu_id' => 'required|exists:users,id',
+            'nama_pengadu' => 'required|string',
             'kategori_id' => 'required|exists:kategori_aduans,id',
             'keterangan_aduan' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -50,7 +50,7 @@ class AduanController extends Controller
         }
 
         $aduan = new Aduan();
-        $aduan->pengadu_id = $request->input('pengadu_id');
+        $aduan->nama_pengadu = $request->input('nama_pengadu');
         $aduan->kategori_id = $request->input('kategori_id');
         $aduan->keterangan_aduan = $request->input('keterangan_aduan');
 
@@ -81,7 +81,7 @@ class AduanController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'pengadu_id' => 'sometimes|required|exists:users,id',
+            'nama_pengadu' => 'sometimes|required|string',
             'kategori_id' => 'sometimes|required|exists:kategori_aduans,id',
             'keterangan_aduan' => 'sometimes|required|string',
             'foto' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -110,7 +110,7 @@ class AduanController extends Controller
         }
 
         // Update data aduan
-        $aduan->pengadu_id = $request->input('pengadu_id', $aduan->pengadu_id);
+        $aduan->nama_pengadu = $request->input('nama_pengadu', $aduan->nama_pengadu);
         $aduan->kategori_id = $request->input('kategori_id', $aduan->kategori_id);
         $aduan->keterangan_aduan = $request->input('keterangan_aduan', $aduan->keterangan_aduan);
         $aduan->kecamatan = $request->input('kecamatan', $aduan->kecamatan);
