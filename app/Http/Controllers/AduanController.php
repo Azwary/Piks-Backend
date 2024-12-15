@@ -187,6 +187,20 @@ class AduanController extends Controller
 
         return response()->json(['total' => $total], 200);
     }
+    public function showfoto(Request $request)
+    {
+        // Retrieve all Aduan records and select only the foto field
+        $aduans = Aduan::select('id', 'foto')->get();
+
+        // Check if there are no records found
+        if ($aduans->isEmpty()) {
+            return response()->json(['message' => 'Tidak ada foto yang ditemukan'], 404);
+        }
+
+        // Return the list of fotos
+        return response()->json($aduans, 200);
+    }
+
 
     public function pending()
     {
