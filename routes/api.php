@@ -18,7 +18,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum', 'role:1'])->group(function () {      //pengelola
     Route::post('/pemerintah/add', [PengelolaController::class, 'addPemerintah']);
     Route::get('/total-pending', [AduanController::class, 'total1']);
-    Route::get('/foto', [AduanController::class, 'showfoto']);
+    Route::get('/foto/{id}', [AduanController::class, 'showfoto']);
     Route::get('/pending', [AduanController::class, 'pending']);
     Route::put('/updateStatus/{id}', [AduanController::class, 'updateStatus']);
     Route::put('/toproses/{id}', [AduanController::class, 'toproses']);
