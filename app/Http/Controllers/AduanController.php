@@ -290,4 +290,70 @@ class AduanController extends Controller
             'aduan_data' => $aduans // Return an array of objects with aduan_id and status_id
         ], 200);
     }
+    // public function tosiap($aduan_id)
+    // {
+
+    //     $aduan = Aduan::where('id', $aduan_id)->first();
+
+    //     if (!$aduan) {
+    //         return response()->json(['message' => 'Aduan not found'], 404);
+    //     }
+
+    //     $aduan->status_id = 4;
+    //     $aduan->save();
+
+    //     return response()->json(['message' => 'Status updated successfully', 'aduan' => $aduan], 200);
+    // }
+    public function toselesai(Request $request, $id)
+    {
+        // Find the Aduan record by ID
+        $aduan = Aduan::find($id);
+
+        // Check if the Aduan record exists
+        if (!$aduan) {
+            return response()->json(['error' => 'Data aduan tidak ditemukan'], 404);
+        }
+
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'dokumentasi_hasil' => 'sometimes|nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048', // Allow specific file types for documentation
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 422);
+        }
+
+        // Delete old documentation if it exists and a new file is being uploaded
+        if ($aduan->dokumentasi_hasil && $request->hasFile('dokumentasi_hasil')) {
+            // Delete the old file from storage
+            Storage::delete('public/' . str_replace('storage/dokumentasi_hasil/', '', $aduan->dokumentasi_hasil));
+        }
+
+        // Save new documentation if a file is uploaded
+        if ($request->hasFile('dokumentasi_hasil')) {
+            $file = $request->file('dokumentasi_hasil');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            // Store the file in the public storage
+            $filePath = $file->storeAs('public/dokumentasi_hasil', $filename);
+
+            // Check if the file was stored successfully
+            if (!$filePath) {
+                return response()->json(['error' => 'File tidak dapat disimpan'], 500);
+            }
+
+            // Update the dokumentasi_hasil field in the Aduan model
+            $aduan->dokumentasi_hasil = 'storage/dokumentasi_hasil/' . $filename; // Update the correct field
+        }
+
+        // Update the status of the Aduan
+        $aduan->status_id = 4;
+
+        // Save the Aduan record
+        if (!$aduan->save()) {
+            return response()->json(['error' => 'Data aduan tidak dapat diupdate'], 500);
+        }
+
+        return response()->json(['message' => 'Data aduan berhasil diupdate'], 200);
+    }
 }

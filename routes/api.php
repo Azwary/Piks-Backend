@@ -22,12 +22,14 @@ Route::middleware(['auth:sanctum', 'role:1'])->group(function () {      //pengel
     Route::get('/pending', [AduanController::class, 'pending']);
     Route::put('/updateStatus/{id}', [AduanController::class, 'updateStatus']);
     Route::put('/toproses/{id}', [AduanController::class, 'toproses']);
-    Route::put('/toolak/{id}', [AduanController::class, 'toproses']);
+    Route::put('/toolak/{id}', [AduanController::class, 'totolak']);
     Route::delete('aduan/{id}', [AduanController::class, 'destroy']);
 });
 
 Route::middleware(['auth:sanctum', 'role:2'])->group(function () {      //pemerintah
     Route::get('/proses', [AduanController::class, 'proses']);
+    Route::put('/toselesai/{id}', [AduanController::class, 'toselesai']);
+    // Route::put('/tosiap/{id}', [AduanController::class, 'tosiap']);
 });
 
 
